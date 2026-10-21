@@ -1,0 +1,1 @@
+(function(){var p=["hello","cashratewatch","com"],a=p[0]+String.fromCharCode(64)+p[1]+String.fromCharCode(46)+p[2];document.querySelectorAll('.js-email').forEach(function(s){var l=document.createElement('a');l.href='mai'+'lto:'+a;l.textContent=a;s.textContent='';s.appendChild(l)})})();

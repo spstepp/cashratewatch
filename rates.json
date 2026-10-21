@@ -9,15 +9,6 @@
   "fetched_at": "2026-10-21T09:45-06:00"
  },
  {
-  "name": "Kraken USDC rewards (flexible)",
-  "type": "USDC",
-  "rate_apy": "4.50",
-  "risk": "Not insured",
-  "min_deposit": "unknown",
-  "source_url": "https://www.kraken.com/learn/what-is-usd-coin-usdc",
-  "fetched_at": "2026-10-21T09:45-06:00"
- },
- {
   "name": "US T-Bill 26-week",
   "type": "T-bill",
   "rate_apy": "4.351",

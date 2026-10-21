@@ -12,7 +12,7 @@ a{color:var(--acc)}header.top{border-bottom:1px solid var(--line);background:#ff
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 .top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding:12px 16px}
 .logo{font-weight:800;font-size:1.15rem;text-decoration:none;color:var(--fg);display:flex;align-items:center;gap:8px}
-.logo img{width:26px;height:26px}nav a{color:var(--mut);text-decoration:none;font-size:.93rem;margin-right:12px}nav a:hover{color:var(--acc)}
+.logo img{width:26px;height:26px}nav{display:flex;gap:4px;overflow-x:auto;white-space:nowrap;max-width:100%;-webkit-overflow-scrolling:touch;scrollbar-width:none}nav::-webkit-scrollbar{display:none}nav a{color:var(--mut);text-decoration:none;font-size:.93rem;display:inline-flex;align-items:center;min-height:44px;padding:0 8px;white-space:nowrap;border-radius:8px}nav a:hover{color:var(--acc);background:var(--acc2)}
 h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.15;margin:28px 0 6px}h2{margin-top:34px;font-size:1.3rem}
 .upd{color:var(--mut);font-size:.92rem;margin:0 0 14px}.lead{font-size:1.08rem;max-width:760px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:18px 0}
@@ -33,19 +33,19 @@ td.apy{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}td s
 .risk dt{font-weight:700;margin-top:8px}.risk dd{margin:2px 0 0}
 .nl{background:var(--acc2);border:1px solid #cfe5da}.nl form{display:flex;flex-wrap:wrap;gap:8px}.nl input{flex:1 1 220px;font:inherit;padding:10px;border:1px solid #bcd8ca;border-radius:8px}
 .nl button{font:inherit;font-weight:700;padding:10px 18px;border:0;border-radius:8px;background:var(--acc);color:#fff;cursor:pointer}
-footer{margin-top:48px;border-top:1px solid var(--line);padding:20px 0 34px;color:var(--mut);font-size:.88rem}footer a{color:var(--mut);margin-right:14px}
+footer{margin-top:48px;border-top:1px solid var(--line);padding:20px 0 34px;color:var(--mut);font-size:.88rem}footer a{color:var(--mut);margin-right:14px;display:inline-block;padding:6px 0}
 .prose{max-width:760px}.prose li{margin:4px 0}
-@media(max-width:640px){th,td{padding:8px 7px;font-size:.88rem}.hide-sm{display:none}}
+@media(max-width:640px){.top .wrap{padding:8px 12px}nav{margin:0 -8px;width:calc(100% + 16px)}nav a{font-size:.86rem;padding:0 6px}nav{gap:0}th,td{padding:8px 7px;font-size:.88rem}.hide-sm{display:none}}
 </style></head><body>
 <header class="top"><div class="wrap"><a class="logo" href="/"><img src="/favicon.svg" alt="">CashRate Watch</a><nav><a href="/savings/">Savings</a><a href="/money-market/">Money market</a><a href="/treasury-bills/">T-bills</a><a href="/broker-cash/">Broker cash</a><a href="/usdc-rewards/">USDC</a></nav></div></header>
 <main class="wrap"><h1>About CashRate Watch</h1><div class="prose"><p class="lead">CashRate Watch answers one question: where should cash sit this week?</p>
 <p>Every week we check the published rates for high-yield savings accounts, money market funds, broker cash programs, US Treasury bill auctions and USDC rewards. We put them in one table with a plain risk label, so you can see the trade-off between yield and safety at a glance.</p>
 <h2>How we collect rates</h2><ul><li>Each rate is read from the provider's public website or official data, for example the US Treasury's FiscalData API for T-bills. Every row links to its source.</li>
 <li>If we can't read a rate directly, we leave it out. We never estimate or fill in a number.</li><li>Promotional rates, balance tiers and subscription requirements are noted under each name.</li></ul>
-<p>Questions or corrections: <a href="mailto:hello@cashratewatch.com">hello@cashratewatch.com</a>.</p></div></main>
+<p>Questions or corrections: <span class="js-email">hello [at] cashratewatch [dot] com</span>.</p></div></main>
 <footer><div class="wrap"><a href="/">Home</a><a href="/about/">About</a><a href="/disclosures/">Disclosures</a>
 <a href="/usdc-vs-high-yield-savings/">USDC vs high-yield savings</a><a href="/best-broker-cash-rates/">Best broker cash rates</a>
-<p>&copy; 2026 CashRate Watch. Information only, not financial advice. Rates change; confirm with the provider. Contact: <a href="mailto:hello@cashratewatch.com">hello@cashratewatch.com</a></p></div></footer>
+<p>&copy; 2026 CashRate Watch. Information only, not financial advice. Rates change; confirm with the provider. Contact: <span class="js-email">hello [at] cashratewatch [dot] com</span></p></div></footer>
 <script>
 document.querySelectorAll('.rt').forEach(function(w){var t=w.querySelector('table'),tb=t.tBodies[0],rows=[].slice.call(tb.rows),
 q=w.querySelector('.q'),ft=w.querySelector('.ft'),fr=w.querySelector('.fr'),n=w.querySelector('.n');
@@ -54,4 +54,4 @@ function f(){var s=(q&&q.value||'').toLowerCase(),a=ft&&ft.value,b=fr&&fr.value,
 t.querySelectorAll('th[data-k]').forEach(function(h,i){h.addEventListener('click',function(){var k=h.dataset.k,ds=h.classList.contains('asc')||(k=='a'&&!h.classList.contains('desc')),sg=ds?-1:1;
 t.querySelectorAll('th').forEach(function(x){x.classList.remove('asc','desc')});h.classList.add(ds?'desc':'asc');
 rows.sort(function(x,y){var u=x.dataset[k],v=y.dataset[k];if(k=='a')return (u-v)*sg;return u.localeCompare(v)*sg});rows.forEach(function(r){tb.appendChild(r)})})})});
-</script></body></html>
+</script><script src="/contact.js" defer></script></body></html>
