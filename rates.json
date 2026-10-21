@@ -5,8 +5,8 @@
   "rate_apy": "4.616",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query",
-  "fetched_at": "2026-10-21T09:45-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20260929_2.pdf",
+  "fetched_at": "2026-10-21T11:30-06:00"
  },
  {
   "name": "US T-Bill 26-week",
@@ -14,8 +14,8 @@
   "rate_apy": "4.351",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query",
-  "fetched_at": "2026-10-21T09:45-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261013_1.pdf",
+  "fetched_at": "2026-10-21T11:30-06:00"
  },
  {
   "name": "US T-Bill 17-week",
@@ -23,8 +23,8 @@
   "rate_apy": "4.313",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query",
-  "fetched_at": "2026-10-21T09:45-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261014_1.pdf",
+  "fetched_at": "2026-10-21T11:30-06:00"
  },
  {
   "name": "EverBank Performance Savings",
@@ -50,8 +50,8 @@
   "rate_apy": "4.185",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query",
-  "fetched_at": "2026-10-21T09:45-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261013_2.pdf",
+  "fetched_at": "2026-10-21T11:30-06:00"
  },
  {
   "name": "US T-Bill 8-week",
@@ -59,8 +59,8 @@
   "rate_apy": "4.132",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query",
-  "fetched_at": "2026-10-21T09:45-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261015_1.pdf",
+  "fetched_at": "2026-10-21T11:30-06:00"
  },
  {
   "name": "US T-Bill 4-week",
@@ -68,8 +68,8 @@
   "rate_apy": "4.068",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/auctions_query",
-  "fetched_at": "2026-10-21T09:45-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261015_2.pdf",
+  "fetched_at": "2026-10-21T11:30-06:00"
  },
  {
   "name": "Vanguard Treasury Money Market (VUSXX)",
