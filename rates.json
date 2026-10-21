@@ -27,6 +27,15 @@
   "fetched_at": "2026-10-21T11:30-06:00"
  },
  {
+  "name": "Western Alliance Bank High-Yield Savings via Raisin",
+  "type": "Savings",
+  "rate_apy": "4.30",
+  "risk": "FDIC",
+  "min_deposit": "$1",
+  "source_url": "https://www.raisin.com/en-us/banks/western-alliance-bank/",
+  "fetched_at": "2026-10-21T12:55-06:00"
+ },
+ {
   "name": "EverBank Performance Savings",
   "type": "Savings",
   "rate_apy": "4.20",

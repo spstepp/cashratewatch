@@ -17,7 +17,7 @@ h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.15;margin:28px 0 6px}h2{marg
 .upd{color:var(--mut);font-size:.92rem;margin:0 0 14px}.lead{font-size:1.08rem;max-width:760px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:18px 0}
 .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}.card b{display:block;font-size:1.5rem;color:var(--acc)}
-.card span{font-size:.85rem;color:var(--mut)}
+.card span{font-size:.85rem;color:var(--mut)}.card .card-tag{font-size:.8rem;font-weight:600;color:var(--warn);white-space:nowrap}
 .controls{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 8px}.controls input,.controls select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .controls input{flex:1 1 220px}
 .tw{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:10px}
@@ -43,11 +43,11 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:20px 0 34px;colo
 <h2>Insurance and risk labels</h2><p>Our FDIC / SIPC / Treasury-backed / Not insured labels are simplified summaries. Coverage limits and conditions apply. Crypto assets, including USDC, are not FDIC- or SIPC-insured and can lose value.</p>
 <h2 id="newsletter-privacy">Newsletter</h2><p>Newsletter signups are handled by beehiiv, our email provider (see <a href="https://www.beehiiv.com/privacy" rel="nofollow noopener">beehiiv's privacy policy</a>). Subscriber email addresses are used only to send the weekly CashRate Watch email. We never sell them. You can unsubscribe anytime using the link at the bottom of every email.</p>
 <h2>Affiliate relationships</h2><p>We do not currently have any affiliate relationships, and the links on this site are plain links to providers' own pages. In the future we may earn commissions from some providers when readers open or fund accounts through our links. If we do, we will label those links. Compensation will not change how rates are ranked: tables are sorted by rate.</p>
-<h2>Data sources</h2><p>Rates come from providers' public pages and from US Treasury auction data (<a href="https://fiscaldata.treasury.gov/datasets/treasury-securities-auctions-data/" rel="nofollow noopener">FiscalData auctions dataset</a>; each T-bill row links to its TreasuryDirect auction results release). Sources used this week: banking.barclaysus.com, fundresearch.fidelity.com, investor.vanguard.com, public.com, robinhood.com, www.ally.com, www.americanexpress.com, www.betterment.com, www.cit.com, www.coinbase.com, www.everbank.com, www.interactivebrokers.com, www.lendingclub.com, www.marcus.com, www.schwab.com, www.sofi.com, www.treasurydirect.gov, www.varomoney.com, www.wealthfront.com.</p>
+<h2>Data sources</h2><p>Rates come from providers' public pages and from US Treasury auction data (<a href="https://fiscaldata.treasury.gov/datasets/treasury-securities-auctions-data/" rel="nofollow noopener">FiscalData auctions dataset</a>; each T-bill row links to its TreasuryDirect auction results release). Sources used this week: banking.barclaysus.com, fundresearch.fidelity.com, investor.vanguard.com, public.com, robinhood.com, www.ally.com, www.americanexpress.com, www.betterment.com, www.cit.com, www.coinbase.com, www.everbank.com, www.interactivebrokers.com, www.lendingclub.com, www.marcus.com, www.raisin.com, www.schwab.com, www.sofi.com, www.treasurydirect.gov, www.varomoney.com, www.wealthfront.com.</p>
 <p>Contact: <span class="js-email">hello [at] cashratewatch [dot] com</span></p></div></main>
-<footer><div class="wrap"><a href="/">Home</a><a href="/about/">About</a><a href="/disclosures/">Disclosures</a>
+<footer><div class="wrap"><a href="/">Home</a><a href="/about/">About</a><a href="/disclosures/">Disclosures</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
 <a href="/usdc-vs-high-yield-savings/">USDC vs high-yield savings</a><a href="/best-broker-cash-rates/">Best broker cash rates</a>
-<p>&copy; 2026 CashRate Watch. Information only, not financial advice. Rates change; confirm with the provider. Contact: <span class="js-email">hello [at] cashratewatch [dot] com</span></p></div></footer>
+<p>&copy; 2026 CashRate Watch, published by Sparta Labs. Information only, not financial advice. Rates change; confirm with the provider. Contact: <span class="js-email">hello [at] cashratewatch [dot] com</span></p></div></footer>
 <script>
 document.querySelectorAll('.rt').forEach(function(w){var t=w.querySelector('table'),tb=t.tBodies[0],rows=[].slice.call(tb.rows),
 q=w.querySelector('.q'),ft=w.querySelector('.ft'),fr=w.querySelector('.fr'),n=w.querySelector('.n');

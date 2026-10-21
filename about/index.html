@@ -17,7 +17,7 @@ h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.15;margin:28px 0 6px}h2{marg
 .upd{color:var(--mut);font-size:.92rem;margin:0 0 14px}.lead{font-size:1.08rem;max-width:760px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:18px 0}
 .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}.card b{display:block;font-size:1.5rem;color:var(--acc)}
-.card span{font-size:.85rem;color:var(--mut)}
+.card span{font-size:.85rem;color:var(--mut)}.card .card-tag{font-size:.8rem;font-weight:600;color:var(--warn);white-space:nowrap}
 .controls{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 8px}.controls input,.controls select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .controls input{flex:1 1 220px}
 .tw{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:10px}
@@ -42,10 +42,11 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:20px 0 34px;colo
 <p>Every week we check the published rates for high-yield savings accounts, money market funds, broker cash programs, US Treasury bill auctions and USDC rewards. We put them in one table with a plain risk label, so you can see the trade-off between yield and safety at a glance.</p>
 <h2>How we collect rates</h2><ul><li>Each rate is read from the provider's public website or official data, for example the US Treasury's FiscalData API for T-bills. Every row links to its source.</li>
 <li>If we can't read a rate directly, we leave it out. We never estimate or fill in a number.</li><li>Promotional rates, balance tiers and subscription requirements are noted under each name.</li></ul>
+<h2>Who publishes CashRate Watch</h2><p>CashRate Watch is an independent publication by Sparta Labs. We're not owned by any bank, broker or crypto exchange.</p>
 <p>Questions or corrections: <span class="js-email">hello [at] cashratewatch [dot] com</span>.</p></div></main>
-<footer><div class="wrap"><a href="/">Home</a><a href="/about/">About</a><a href="/disclosures/">Disclosures</a>
+<footer><div class="wrap"><a href="/">Home</a><a href="/about/">About</a><a href="/disclosures/">Disclosures</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
 <a href="/usdc-vs-high-yield-savings/">USDC vs high-yield savings</a><a href="/best-broker-cash-rates/">Best broker cash rates</a>
-<p>&copy; 2026 CashRate Watch. Information only, not financial advice. Rates change; confirm with the provider. Contact: <span class="js-email">hello [at] cashratewatch [dot] com</span></p></div></footer>
+<p>&copy; 2026 CashRate Watch, published by Sparta Labs. Information only, not financial advice. Rates change; confirm with the provider. Contact: <span class="js-email">hello [at] cashratewatch [dot] com</span></p></div></footer>
 <script>
 document.querySelectorAll('.rt').forEach(function(w){var t=w.querySelector('table'),tb=t.tBodies[0],rows=[].slice.call(tb.rows),
 q=w.querySelector('.q'),ft=w.querySelector('.ft'),fr=w.querySelector('.fr'),n=w.querySelector('.n');

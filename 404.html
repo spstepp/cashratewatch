@@ -17,7 +17,7 @@ h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.15;margin:28px 0 6px}h2{marg
 .upd{color:var(--mut);font-size:.92rem;margin:0 0 14px}.lead{font-size:1.08rem;max-width:760px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:18px 0}
 .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}.card b{display:block;font-size:1.5rem;color:var(--acc)}
-.card span{font-size:.85rem;color:var(--mut)}
+.card span{font-size:.85rem;color:var(--mut)}.card .card-tag{font-size:.8rem;font-weight:600;color:var(--warn);white-space:nowrap}
 .controls{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 8px}.controls input,.controls select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .controls input{flex:1 1 220px}
 .tw{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:10px}
@@ -39,9 +39,9 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:20px 0 34px;colo
 </style></head><body>
 <header class="top"><div class="wrap"><a class="logo" href="/"><img src="/favicon.svg" alt="">CashRate Watch</a><nav><a href="/savings/">Savings</a><a href="/money-market/" aria-label="Money market"><span class="nl-full">Money market</span><span class="nl-short" aria-hidden="true">Money mkt</span></a><a href="/treasury-bills/">T-bills</a><a href="/broker-cash/" aria-label="Broker cash"><span class="nl-full">Broker cash</span><span class="nl-short" aria-hidden="true">Brokers</span></a><a href="/usdc-rewards/">USDC</a></nav></div></header>
 <main class="wrap"><h1>Page not found</h1><div class="prose"><p class="lead">Sorry, that page doesn't exist. It may have moved.</p><ul><li><a href="/">Home: all rates this week</a></li><li><a href="/savings/">Savings</a></li><li><a href="/money-market/">Money market</a></li><li><a href="/treasury-bills/">T-bills</a></li><li><a href="/broker-cash/">Broker cash</a></li><li><a href="/usdc-rewards/">USDC</a></li></ul></div></main>
-<footer><div class="wrap"><a href="/">Home</a><a href="/about/">About</a><a href="/disclosures/">Disclosures</a>
+<footer><div class="wrap"><a href="/">Home</a><a href="/about/">About</a><a href="/disclosures/">Disclosures</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a>
 <a href="/usdc-vs-high-yield-savings/">USDC vs high-yield savings</a><a href="/best-broker-cash-rates/">Best broker cash rates</a>
-<p>&copy; 2026 CashRate Watch. Information only, not financial advice. Rates change; confirm with the provider. Contact: <span class="js-email">hello [at] cashratewatch [dot] com</span></p></div></footer>
+<p>&copy; 2026 CashRate Watch, published by Sparta Labs. Information only, not financial advice. Rates change; confirm with the provider. Contact: <span class="js-email">hello [at] cashratewatch [dot] com</span></p></div></footer>
 <script>
 document.querySelectorAll('.rt').forEach(function(w){var t=w.querySelector('table'),tb=t.tBodies[0],rows=[].slice.call(tb.rows),
 q=w.querySelector('.q'),ft=w.querySelector('.ft'),fr=w.querySelector('.fr'),n=w.querySelector('.n');
