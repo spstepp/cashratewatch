@@ -6,16 +6,7 @@
   "risk": "Treasury-backed",
   "min_deposit": "$100",
   "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261027_1.pdf",
-  "fetched_at": "2026-10-28T18:33-06:00"
- },
- {
-  "name": "US T-Bill 26-week",
-  "type": "T-bill",
-  "rate_apy": "4.361",
-  "risk": "Treasury-backed",
-  "min_deposit": "$100",
-  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261026_2.pdf",
-  "fetched_at": "2026-10-28T18:33-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Western Alliance Bank High-Yield Savings via Raisin",
@@ -24,7 +15,16 @@
   "risk": "FDIC",
   "min_deposit": "$1",
   "source_url": "https://www.raisin.com/en-us/banks/western-alliance-bank/",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
+ },
+ {
+  "name": "US T-Bill 26-week",
+  "type": "T-bill",
+  "rate_apy": "4.298",
+  "risk": "Treasury-backed",
+  "min_deposit": "$100",
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261102_2.pdf",
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "US T-Bill 17-week",
@@ -33,7 +33,7 @@
   "risk": "Treasury-backed",
   "min_deposit": "$100",
   "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261028_2.pdf",
-  "fetched_at": "2026-10-28T18:33-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "EverBank Performance Savings",
@@ -42,7 +42,7 @@
   "risk": "FDIC",
   "min_deposit": "unknown",
   "source_url": "https://www.everbank.com/banking/performance-savings",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "LendingClub LevelUp Savings",
@@ -51,52 +51,61 @@
   "risk": "FDIC",
   "min_deposit": "$250 deposits to earn APY",
   "source_url": "https://www.lendingclub.com/high-yield-savings",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "US T-Bill 13-week",
   "type": "T-bill",
-  "rate_apy": "4.149",
+  "rate_apy": "4.138",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261026_1.pdf",
-  "fetched_at": "2026-10-28T18:33-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261102_1.pdf",
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "US T-Bill 8-week",
   "type": "T-bill",
-  "rate_apy": "4.096",
+  "rate_apy": "4.101",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261022_2.pdf",
-  "fetched_at": "2026-10-28T18:33-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261029_2.pdf",
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "US T-Bill 4-week",
   "type": "T-bill",
-  "rate_apy": "4.012",
+  "rate_apy": "3.976",
   "risk": "Treasury-backed",
   "min_deposit": "$100",
-  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261022_1.pdf",
-  "fetched_at": "2026-10-28T18:33-06:00"
- },
- {
-  "name": "Vanguard Treasury Money Market (VUSXX)",
-  "type": "Money market",
-  "rate_apy": "3.95",
-  "risk": "SIPC",
-  "min_deposit": "$3,000",
-  "source_url": "https://investor.vanguard.com/investment-products/mutual-funds/profile/vusxx",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261029_1.pdf",
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Vanguard Federal Money Market (VMFXX)",
   "type": "Money market",
-  "rate_apy": "3.86",
+  "rate_apy": "3.89",
   "risk": "SIPC",
   "min_deposit": "$3,000",
   "source_url": "https://investor.vanguard.com/investment-products/mutual-funds/profile/vmfxx",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
+ },
+ {
+  "name": "Vanguard Treasury Money Market (VUSXX)",
+  "type": "Money market",
+  "rate_apy": "3.88",
+  "risk": "SIPC",
+  "min_deposit": "$3,000",
+  "source_url": "https://investor.vanguard.com/investment-products/mutual-funds/profile/vusxx",
+  "fetched_at": "2026-11-03T17:37-07:00"
+ },
+ {
+  "name": "Schwab Prime Advantage Money Fund (SWVXX)",
+  "type": "Money market",
+  "rate_apy": "3.77",
+  "risk": "SIPC",
+  "min_deposit": "$0",
+  "source_url": "https://www.schwab.com/money-market-funds",
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "CIT Bank Platinum Savings",
@@ -105,7 +114,7 @@
   "risk": "FDIC",
   "min_deposit": "$100 to open; $5,000 for 3.75% (0.25% below)",
   "source_url": "https://www.cit.com/cit-bank/platinum-savings",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Coinbase USDC rewards",
@@ -114,16 +123,7 @@
   "risk": "Not insured",
   "min_deposit": "$0 + Coinbase One ($4.99+/mo)",
   "source_url": "https://www.coinbase.com/usdc",
-  "fetched_at": "2026-10-27T17:31-06:00"
- },
- {
-  "name": "Schwab Prime Advantage Money Fund (SWVXX)",
-  "type": "Money market",
-  "rate_apy": "3.74",
-  "risk": "SIPC",
-  "min_deposit": "$0",
-  "source_url": "https://www.schwab.com/money-market-funds",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Barclays Tiered Savings",
@@ -132,34 +132,34 @@
   "risk": "FDIC",
   "min_deposit": "$0",
   "source_url": "https://banking.barclaysus.com/online-savings.html",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
+ },
+ {
+  "name": "Schwab Government Money Fund (SNVXX)",
+  "type": "Money market",
+  "rate_apy": "3.63",
+  "risk": "SIPC",
+  "min_deposit": "$0",
+  "source_url": "https://www.schwab.com/money-market-funds",
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Schwab U.S. Treasury Money Fund (SNSXX)",
   "type": "Money market",
-  "rate_apy": "3.65",
+  "rate_apy": "3.62",
   "risk": "SIPC",
   "min_deposit": "$0",
   "source_url": "https://www.schwab.com/money-market-funds",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Schwab Treasury Obligations Money Fund (SNOXX)",
-  "type": "Money market",
-  "rate_apy": "3.64",
-  "risk": "SIPC",
-  "min_deposit": "$0",
-  "source_url": "https://www.schwab.com/money-market-funds",
-  "fetched_at": "2026-10-27T17:31-06:00"
- },
- {
-  "name": "Schwab Government Money Fund (SNVXX)",
   "type": "Money market",
   "rate_apy": "3.60",
   "risk": "SIPC",
   "min_deposit": "$0",
   "source_url": "https://www.schwab.com/money-market-funds",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Robinhood Gold High-Yield Cash",
@@ -168,7 +168,16 @@
   "risk": "FDIC / SIPC",
   "min_deposit": "$0 + $5/mo Gold",
   "source_url": "https://robinhood.com/us/en/gold/",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
+ },
+ {
+  "name": "Fidelity Government Money Market (SPAXX)",
+  "type": "Money market",
+  "rate_apy": "3.56",
+  "risk": "SIPC",
+  "min_deposit": "$0",
+  "source_url": "https://fundresearch.fidelity.com/mutual-funds/summary/31617H102",
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Wealthfront Cash Account",
@@ -177,16 +186,16 @@
   "risk": "FDIC",
   "min_deposit": "$1",
   "source_url": "https://www.wealthfront.com/cash",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
-  "name": "Fidelity Government Money Market (SPAXX)",
-  "type": "Money market",
-  "rate_apy": "3.53",
-  "risk": "SIPC",
-  "min_deposit": "$0",
-  "source_url": "https://fundresearch.fidelity.com/mutual-funds/summary/31617H102",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "name": "Schwab Intelligent Portfolios sweep",
+  "type": "Broker cash",
+  "rate_apy": "3.51",
+  "risk": "FDIC",
+  "min_deposit": "robo account",
+  "source_url": "https://www.schwab.com/legal/sip-sweep-current-interest-rates",
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Marcus by Goldman Sachs Online Savings",
@@ -195,7 +204,7 @@
   "risk": "FDIC",
   "min_deposit": "$0",
   "source_url": "https://www.marcus.com/us/en/savings/high-yield-savings",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Betterment Cash Reserve",
@@ -204,16 +213,7 @@
   "risk": "FDIC",
   "min_deposit": "unknown",
   "source_url": "https://www.betterment.com/cash-reserve",
-  "fetched_at": "2026-10-27T17:31-06:00"
- },
- {
-  "name": "Schwab Intelligent Portfolios sweep",
-  "type": "Broker cash",
-  "rate_apy": "3.47",
-  "risk": "FDIC",
-  "min_deposit": "robo account",
-  "source_url": "https://www.schwab.com/legal/sip-sweep-current-interest-rates",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Interactive Brokers (IBKR Pro) cash interest",
@@ -222,7 +222,7 @@
   "risk": "SIPC",
   "min_deposit": "tiered: on USD above $10k",
   "source_url": "https://www.interactivebrokers.com/en/accounts/fees/pricing-interest-rates.php",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "SoFi Savings",
@@ -231,7 +231,7 @@
   "risk": "FDIC",
   "min_deposit": "$0",
   "source_url": "https://www.sofi.com/banking/savings-account/",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Public High-Yield Cash Account",
@@ -240,7 +240,7 @@
   "risk": "FDIC",
   "min_deposit": "$0",
   "source_url": "https://public.com/high-yield-cash-account",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "American Express High Yield Savings",
@@ -249,7 +249,7 @@
   "risk": "FDIC",
   "min_deposit": "$0",
   "source_url": "https://www.americanexpress.com/en-us/banking/online-savings/account/",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Ally Online Savings",
@@ -258,7 +258,7 @@
   "risk": "FDIC",
   "min_deposit": "$0",
   "source_url": "https://www.ally.com/bank/online-savings-account/",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Varo Savings",
@@ -267,7 +267,7 @@
   "risk": "FDIC",
   "min_deposit": "$0",
   "source_url": "https://www.varomoney.com/savings-account/",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
   "name": "Schwab brokerage uninvested cash (Bank Sweep)",
@@ -276,6 +276,6 @@
   "risk": "FDIC",
   "min_deposit": "$0",
   "source_url": "https://www.schwab.com/cash-investments",
-  "fetched_at": "2026-10-27T17:31-06:00"
+  "fetched_at": "2026-11-03T17:37-07:00"
  }
 ]
