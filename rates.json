@@ -45,13 +45,13 @@
   "fetched_at": "2026-11-03T17:37-07:00"
  },
  {
-  "name": "LendingClub LevelUp Savings",
+  "name": "Happen Bank (formerly LendingClub) LevelUp Savings",
   "type": "Savings",
   "rate_apy": "4.20",
   "risk": "FDIC",
   "min_deposit": "$250 deposits to earn APY",
-  "source_url": "https://www.lendingclub.com/high-yield-savings",
-  "fetched_at": "2026-11-03T17:37-07:00"
+  "source_url": "https://www.happen.com/personal-banking/savings/high-yield-savings",
+  "fetched_at": "2026-11-03T18:50-07:00"
  },
  {
   "name": "US T-Bill 13-week",
@@ -79,6 +79,15 @@
   "min_deposit": "$100",
   "source_url": "https://www.treasurydirect.gov/instit/annceresult/press/preanre/2026/R_20261029_1.pdf",
   "fetched_at": "2026-11-03T17:37-07:00"
+ },
+ {
+  "name": "Bask Bank Savings",
+  "type": "Savings",
+  "rate_apy": "3.90",
+  "risk": "FDIC",
+  "min_deposit": "$0",
+  "source_url": "https://baskbank.com/products/interest-savings-account",
+  "fetched_at": "2026-11-03T18:50-07:00"
  },
  {
   "name": "Vanguard Federal Money Market (VMFXX)",
@@ -178,6 +187,15 @@
   "min_deposit": "$0",
   "source_url": "https://fundresearch.fidelity.com/mutual-funds/summary/31617H102",
   "fetched_at": "2026-11-03T17:37-07:00"
+ },
+ {
+  "name": "Fidelity Treasury Money Market (FZFXX)",
+  "type": "Money market",
+  "rate_apy": "3.55",
+  "risk": "SIPC",
+  "min_deposit": "$0",
+  "source_url": "https://fundresearch.fidelity.com/mutual-funds/summary/316341304",
+  "fetched_at": "2026-11-03T18:50-07:00"
  },
  {
   "name": "Wealthfront Cash Account",
