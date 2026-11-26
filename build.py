@@ -398,6 +398,7 @@ W1_TOP_COPY = {
     "/cd-rates/": "Get one email a week when CD and savings rates move.",
     "/cds-vs-t-bills/": "Get one email a week with new T-bill auction rates and what moved in CDs.",
     "/cd-vs-high-yield-savings/": "Get one email a week when CD and savings rates move.",
+    "/cd-vs-money-market-fund/": "Get one email a week with new money market yields and what moved in CDs.",
 }
 
 def newsletter_top(path):
@@ -453,6 +454,7 @@ COMPARE = [("/usdc-vs-high-yield-savings/", "USDC vs high-yield savings"), ("/be
            ("/sofi-vs-ally-savings/", "SoFi vs Ally savings"),
            ("/cds-vs-t-bills/", "CDs vs T-bills"),
            ("/cd-vs-high-yield-savings/", "CD vs high-yield savings"),
+           ("/cd-vs-money-market-fund/", "CD vs money market fund"),
            ("/rate-changes/", "What moved this week")]
 def related(here):
     return ('<div class="box rel"><b>Compare:</b> ' + "".join(f'<a href="{p}">{e(l)}</a>' for p, l in COMPARE if p != here) + '</div>')
@@ -836,7 +838,7 @@ if MM:
 <li><b>Where you hold it.</b> Each company's funds are easiest to buy at its own brokerage. Buying another company's fund may cost a transaction fee or may not be possible.</li>
 <li><b>State tax.</b> Part or all of the income from government and Treasury funds may be exempt from state income tax. The rules differ by state, so check the fund's annual tax information.</li>
 <li><b>Risk.</b> Money market funds are not FDIC-insured. They aim to keep a $1 share price, which is not guaranteed. At a brokerage, SIPC covers missing assets if the broker fails, not a drop in the fund's value.</li></ul>
-<p>Compare with <a href="/money-market/">all money market fund yields</a>, with <a href="/high-yield-savings-vs-money-market-fund/">high-yield savings</a>, with <a href="/t-bills-vs-money-market-funds/">T-bills vs money market funds</a>, and with <a href="/spaxx-vs-vmfxx-vs-swvxx/">SPAXX vs VMFXX vs SWVXX</a>.</p></div>
+<p>Compare with <a href="/money-market/">all money market fund yields</a>, with <a href="/high-yield-savings-vs-money-market-fund/">high-yield savings</a>, with <a href="/t-bills-vs-money-market-funds/">T-bills vs money market funds</a>, and with <a href="/spaxx-vs-vmfxx-vs-swvxx/">SPAXX vs VMFXX vs SWVXX</a>. For a rate you can lock, see <a href="/cd-vs-money-market-fund/">CD vs money market fund</a>.</p></div>
 {faq_block(mm_faqs)}{related("/best-money-market-funds/")}{RISK_EXPLAINER}{NEWSLETTER}"""
     page("/best-money-market-funds/", f"Best money market fund yields: Vanguard vs Schwab vs Fidelity ({MONTH}) | {BRAND}",
          f"This week's 7-day yields for Vanguard, Schwab and Fidelity money market funds such as {', '.join(ticker(r['name']) for r in MM[:4])}, with minimums and fund types.",
@@ -3235,7 +3237,7 @@ _cd_body = (
     + ("<li><b>EverBank:</b> $1,000 minimum to open. The 7-, 13- and 25-month CDs renew into 6-, 12- and 24-month CDs at maturity. Confirm the early withdrawal penalty on EverBank's CD page.</li>" if any(r["bank"] == "EverBank" for r in CD) else "")
     + "</ul>"
     "<h2>Which one fits</h2><ul>"
-    '<li><b>You may need the money on any day:</b> <a href="/savings/">savings</a> or a <a href="/money-market/">money market fund</a> is built for that.</li>'
+    '<li><b>You may need the money on any day:</b> <a href="/savings/">savings</a> or a <a href="/money-market/">money market fund</a> is built for that. Side by side: <a href="/cd-vs-money-market-fund/">CD vs money market fund</a>.</li>'
     "<li><b>You can leave it until a set date and want a rate that won't change:</b> that's what a CD does.</li>"
     '<li><b>You pay state income tax and can hold to a date:</b> compare <a href="/treasury-bills/">T-bill auction rates</a> too, since T-bill interest skips state tax.</li>'
     "</ul></div>"
@@ -3457,6 +3459,164 @@ page("/cd-vs-high-yield-savings/",
      + (f" and the best 1-year CD pays {_cs_12['rate']:.2f}%" if _cs_12 else "")
      + ". Fixed vs variable rates, same-bank gaps, penalties and when each one wins.",
      _cs_body, h1="CD vs high-yield savings: which pays more?", faqs=_cs_faqs)
+
+# ---- CD vs money market fund (added 2026-11-26 daily build) ----
+# Rates come from cd_seed.csv (CD list above, read Nov 23, 2026) and rates_seed.csv money_market rows (7-day yields,
+# current refresh) at build time; no figures are typed in here. Penalty text is the cd_seed.csv early_withdrawal column.
+# Non-rate wording reuses facts already on the site: FDIC $250,000 per depositor, per bank, per ownership category;
+# money funds not FDIC-insured, $1 share price not guaranteed, SIPC covers missing assets not a drop in value
+# (/best-money-market-funds/); state-tax note for government and Treasury funds (/best-money-market-funds/ and
+# /state-tax-free-money-market-funds/); Vanguard waives the VMFXX minimum as a settlement fund (/best-money-market-funds/).
+_cm_mm = [r for r in SHOWN if r["category"] == "money_market"]
+if not _cm_mm:
+    raise SystemExit("cd-vs-money-market-fund: no money market rows")
+_cm_funds = _cm_mm[:3] + [r for r in _cm_mm[3:] if ticker(r["name"]) in ("VMFXX", "SPAXX")]
+_cm_top = _cm_mm[0]
+_cm_cds = []
+for _mo in (3, 6, 12):
+    _rs = [r for r in CD if r["months"] == _mo]
+    if _rs: _cm_cds.append(max(_rs, key=lambda r: (r["rate"], r["bank"] == "Marcus by Goldman Sachs")))
+if not _cm_cds:
+    raise SystemExit("cd-vs-money-market-fund: no 3-, 6- or 12-month CD rows")
+def _cm_lab(mo): return {3: "3-month", 6: "6-month", 12: "1-year"}.get(mo, f"{mo}-month")
+_cm_6 = next((r for r in _cm_cds if r["months"] == 6), None)
+_cm_12 = next((r for r in _cm_cds if r["months"] == 12), None)
+def _cm_asof(r):
+    a = note_as_of(r)
+    return datetime.strptime(a, "%m/%d/%Y").strftime("%b %-d, %Y") if a else None
+_cm_asofs = sorted({_cm_asof(r) for r in _cm_funds if _cm_asof(r)})
+_cm_asof_txt = (f"7-day yields as of {_cm_asofs[0]}" if len(_cm_asofs) == 1 else f"7-day yields from the {UPD_S} check")
+def _cm_tk(r): return ticker(r["name"])
+def _cm_gap(rate):
+    g = rate - _cm_top["rate"]
+    return f"+{g:.2f} pts" if g > 0 else (f"{g:.2f} pts" if g < 0 else "Even")
+def _cm_pen(r):
+    p = (r.get("early_withdrawal") or "").strip()
+    return p[0].upper() + p[1:] if p else "Penalty; confirm on the bank's CD page"
+def _cm_days(r):
+    m = re.search(r"(\d+) days simple interest", r.get("early_withdrawal") or "")
+    return int(m.group(1)) if m else None
+_cm_others = [r for r in _cm_funds if r is not _cm_top]
+_cm_lead = []
+if _cm_6 and _cm_12:
+    _cm_lead.append(f"The best 6-month CD pays {_cm_6['rate']:.2f}% APY at {_cd_bn(_cm_6['bank'])}, and the best 1-year CD pays {_cm_12['rate']:.2f}% at {_cd_bn(_cm_12['bank'])}.")
+else:
+    _x = _cm_cds[-1]
+    _cm_lead.append(f"The best {_cm_lab(_x['months'])} CD pays {_x['rate']:.2f}% APY at {_cd_bn(_x['bank'])}.")
+_cm_lead.append(f"The top money market fund, {_cm_tk(_cm_top)}, yields {_cm_top['rate']:.2f}%"
+                + (", with " + _cd_join([f"{_cm_tk(r)} at {r['rate']:.2f}%" for r in _cm_others]) if _cm_others else "") + ".")
+_cm_lead = " ".join(_cm_lead)
+_cm_cd_wins = [r for r in _cm_cds if r["rate"] > _cm_top["rate"]]
+_cm_mm_wins = [r for r in _cm_cds if r["rate"] < _cm_top["rate"]]
+if len(_cm_cd_wins) == len(_cm_cds):
+    _cm_verdict = f"CDs pay more than the top fund at all {len(_cm_cds)} terms, and the CD rate stays put."
+elif len(_cm_mm_wins) == len(_cm_cds):
+    _cm_verdict = f"{_cm_tk(_cm_top)} pays more than the best CD at all {len(_cm_cds)} terms this week, but its yield can change any day."
+else:
+    _cm_verdict = (f"{_cm_tk(_cm_top)} beats the best " + _cd_join([_cm_lab(r["months"]) for r in _cm_mm_wins] or ["no"]) + " CD, and the best "
+                   + _cd_join([_cm_lab(r["months"]) for r in _cm_cd_wins]) + (" CD pays more." if len(_cm_cd_wins) == 1 else " CDs pay more."))
+def _cm_mmrow(r):
+    sub = e(r["name"]) + (" (top fund)" if r is _cm_top else "")
+    return (f'<tr><td>{e(mm_kind(r["name"]))} money market fund</td><td class="apy">{r["rate"]:.2f}%<small>{sub}</small></td>'
+            f'<td>Floating; can change daily</td><td>{"Top fund" if r is _cm_top else _cm_gap(r["rate"])}</td>'
+            f'<td>${10000 * r["rate"] / 100:,.0f} if the yield holds</td><td>Sell any business day</td></tr>')
+def _cm_cdrow(r):
+    return (f'<tr><td>{e(_cm_lab(r["months"]))} CD</td><td class="apy">{r["rate"]:.2f}%<small>{e(_cd_bn(r["bank"]))} {e(r["product"])}</small></td>'
+            f'<td>Fixed for the term</td><td>{_cm_gap(r["rate"])}</td><td>${10000 * r["rate"] / 100:,.0f}</td><td>{e(_cm_pen(r))}</td></tr>')
+_cm_tbl = ('<div class="tw"><table><thead><tr><th>Option</th><th>Yield or APY</th><th>Rate fixed?</th><th>vs top fund</th>'
+           '<th>A year on $10,000</th><th>Getting money out early</th></tr></thead><tbody>'
+           + "".join(_cm_mmrow(r) for r in _cm_funds) + "".join(_cm_cdrow(r) for r in _cm_cds) + "</tbody></table></div>"
+           + f'<p class="foot-n">Fund yields are {e(_cm_asof_txt)}, from each fund company\'s page. CD APYs are from each bank\'s CD page, checked {_cd_upd}. '
+           "A 7-day yield and an APY are close but not identical measures. A year on $10,000 assumes the rate holds for 12 months; "
+           "a 3- or 6-month CD would renew at the rate on that day. Confirm with the provider. Not financial advice.</p>")
+_cm_bpen = next((r for r in _cm_cds if _cm_days(r)), None)
+_cm_pen_txt = (f"At {_cd_bn(_cm_bpen['bank'])}, the {_cm_lab(_cm_bpen['months'])} CD charges {_cm_days(_cm_bpen)} days of simple interest. "
+               f"On $10,000 at {_cm_bpen['rate']:.2f}% that's about ${10000 * _cm_bpen['rate'] / 100 * _cm_days(_cm_bpen) / 365:,.0f}."
+               if _cm_bpen else "Expect a penalty, usually a set number of days of interest.")
+_cm_kinds = {}
+for r in _cm_funds: _cm_kinds.setdefault(mm_kind(r["name"]), []).append(_cm_tk(r))
+_cm_govt = [t for k in ("Treasury", "Government") for t in _cm_kinds.get(k, [])]
+_cm_prime = _cm_kinds.get("Prime", [])
+_cm_mins_mm = sorted({f'{_cm_tk(r)} {r["min_deposit"]}' for r in _cm_funds if r["min_deposit"].strip().lower() not in ("", "unknown")})
+_cm_mins_cd = []
+for b in _cd_banks:
+    r0 = next(r for r in CD if r["bank"] == b)
+    _cm_mins_cd.append(f"{_cd_bn(b)} {r0['min_deposit']}")
+_cm_gap12 = (_cm_12["rate"] - _cm_top["rate"]) if _cm_12 else None
+_cm_faqs = [
+    ("Does a CD or a money market fund pay more right now?", f"{_cm_lead} {_cm_verdict}"),
+    ("Can a money market fund's yield drop?",
+     "Yes. A money market fund's yield moves with short-term interest rates, so it can fall when the Fed cuts. A CD's APY is fixed for the term if you hold it to maturity."),
+    ("Is a money market fund FDIC-insured like a CD?",
+     "No. CDs at an FDIC member bank are insured up to $250,000 per depositor, per bank, per ownership category. Money market funds are not FDIC-insured. "
+     "They aim to keep a $1 share price, which is not guaranteed. At a brokerage, SIPC covers missing assets if the broker fails, not a drop in the fund's value."),
+    ("How fast can I get my money out?",
+     f"You can sell a money market fund on any business day. Breaking a CD early costs a penalty. {_cm_pen_txt}"),
+    ("What's the minimum to start?",
+     "Money market funds: " + "; ".join(_cm_mins_mm) + ". CDs: " + ", ".join(_cm_mins_cd) + "."),
+]
+_cm_body = (
+    '<div class="prose">'
+    f'<p class="lead">{e(_cm_lead)} {e(_cm_verdict)}</p>'
+    f'<p class="upd">Updated {UPD_S} &middot; {len(_cm_funds)} money market funds vs {len(_cm_cds)} CD terms</p>'
+    "<p>Not financial advice.</p>"
+    "<h2>Top money market funds vs the best CDs</h2></div>"
+    + _cm_tbl
+    + '<div class="prose">'
+    + (f"<p>On the 1-year term, the {abs(_cm_gap12):.2f}-point gap is about {dollars(abs(_cm_gap12))} a year on $10,000 and about {dollars(abs(_cm_gap12), 50000)} on $50,000"
+       + (", in the CD's favor" if _cm_gap12 > 0 else f", in {_cm_tk(_cm_top)}'s favor") + ", if the fund's yield holds.</p>" if _cm_gap12 else "")
+    + "<h2>Rate lock vs floating yield</h2>"
+    "<p>A money market fund's yield isn't fixed. It moves with short-term rates, which follow the Fed. When the Fed cuts, fund yields tend to fall soon after; when it raises rates, they climb.</p>"
+    + (f"<p>A CD locks its APY for the term if you hold it to maturity. If you think rates will fall over the next year, a {_cm_12['rate']:.2f}% 1-year CD keeps paying that rate. "
+       "If you think they'll rise, the fund can follow them up and the CD can't.</p>" if _cm_12 else
+       "<p>A CD locks its APY for the term if you hold it to maturity. If rates rise, the fund can follow them up and the CD can't.</p>")
+    )
+_cm_body += (
+    "<h2>Getting to your money</h2><ul>"
+    "<li><b>Money market funds:</b> you can sell on any business day with no penalty.</li>"
+    f"<li><b>CDs:</b> taking money out before the term ends costs a penalty. {e(_cm_pen_txt)} "
+    + e("Penalties by bank for these terms: " + "; ".join(f"{_cd_bn(r['bank'])} {_cm_lab(r['months'])}: {_cm_pen(r).rstrip('.')}" for r in _cm_cds) + ".")
+    + "</li></ul>"
+    "<h2>Safety</h2>"
+    '<p>CDs at an FDIC member bank are deposits, insured up to $250,000 per depositor, per bank, per ownership category (<a href="https://www.fdic.gov/resources/deposit-insurance" rel="nofollow noopener">FDIC</a>).</p>'
+    "<p>Money market funds are not FDIC-insured. They aim to keep a $1 share price, which is not guaranteed. At a brokerage, SIPC covers missing assets if the broker fails, not a drop in the fund's value."
+    + (f" {e(_cd_join(_cm_govt))} {'is a government or Treasury fund' if len(_cm_govt) == 1 else 'are government or Treasury funds'}, which hold US government debt." if _cm_govt else "")
+    + (f" {e(_cd_join(_cm_prime))} {'is a prime fund' if len(_cm_prime) == 1 else 'are prime funds'}, which can also hold short-term corporate debt." if _cm_prime else "")
+    + "</p>"
+    "<h2>Taxes</h2>"
+    "<p>CD interest is taxed federally and by your state, if it has an income tax. Money market fund dividends are taxed federally. "
+    "Part or all of the income from government and Treasury funds may be exempt from state income tax. The rules differ by state, so check the fund's annual tax information. "
+    'See <a href="/state-tax-free-money-market-funds/">state-tax-free money market funds</a> for what each fund keeps after state tax.</p>'
+    "<h2>Minimums</h2><ul>"
+    f"<li><b>Money market funds:</b> {e('; '.join(_cm_mins_mm))}."
+    + (" Vanguard waives the minimum for VMFXX when it is your brokerage settlement fund." if any(_cm_tk(r) == "VMFXX" for r in _cm_funds) else "")
+    + "</li>"
+    f"<li><b>CDs:</b> {e(', '.join(_cm_mins_cd))}.</li></ul>"
+    "<h2>Which one fits</h2><ul>"
+    "<li><b>You might need the money soon:</b> a money market fund. You can sell any business day with no penalty.</li>"
+    "<li><b>You won't touch it until a set date and want a rate that won't change:</b> a CD.</li>"
+    "<li><b>You think rates will fall:</b> a CD locks today's rate. A fund's yield would drift down with them.</li>"
+    "<li><b>You want FDIC insurance:</b> a CD at an FDIC member bank, or a <a href=\"/savings/\">high-yield savings account</a>.</li>"
+    "<li><b>You pay state income tax:</b> part of a Treasury or government fund's income may be exempt from state tax. CD interest isn't.</li></ul>"
+    '<p>Splitting works too: keep cash you might need in a money market fund and put the rest in a CD. '
+    'More: <a href="/cd-rates/">CD rates this week</a>, <a href="/best-money-market-funds/">best money market fund yields</a>, '
+    '<a href="/cd-vs-high-yield-savings/">CD vs high-yield savings</a>, <a href="/cds-vs-t-bills/">CDs vs T-bills</a> and '
+    '<a href="/high-yield-savings-vs-money-market-fund/">high-yield savings vs money market funds</a>.</p>'
+    "</div>"
+    + faq_block(_cm_faqs)
+    + '<div class="prose"><p>Sources: fund yields from each fund company\'s page ('
+    + ", ".join(f'<a href="{e(r["source_url"])}" rel="nofollow">{e(_cm_tk(r))}</a>' for r in _cm_funds)
+    + f"), {UPD_S} check; " + ", ".join(f'<a href="{e(u)}" rel="nofollow">{e(_cd_bn(b))} CD page</a>' for b, u in
+        [(b, next(r["source_url"] for r in CD if r["bank"] == b)) for b in _cd_banks])
+    + f" (read {_cd_upd}). Published by Sparta Labs. Not financial advice.</p></div>"
+    + related("/cd-vs-money-market-fund/") + RISK_EXPLAINER + NEWSLETTER
+)
+page("/cd-vs-money-market-fund/",
+     f"CD vs money market fund: which pays more this week? ({MONTH}) | {BRAND}",
+     (f"The best 1-year CD pays {_cm_12['rate']:.2f}% APY and the top money market fund, {_cm_tk(_cm_top)}, yields {_cm_top['rate']:.2f}%. " if _cm_12
+      else f"The top money market fund, {_cm_tk(_cm_top)}, yields {_cm_top['rate']:.2f}%. ")
+     + "Rate lock, access, FDIC vs SIPC, state tax and minimums.",
+     _cm_body, h1="CD vs money market fund: which pays more?", faqs=_cm_faqs)
 
 # About / Disclosures
 srcs = sorted({re.sub(r"^https?://([^/]+).*", r"\1", r["source_url"]) for r in SHOWN})
