@@ -399,6 +399,7 @@ W1_TOP_COPY = {
     "/cds-vs-t-bills/": "Get one email a week with new T-bill auction rates and what moved in CDs.",
     "/cd-vs-high-yield-savings/": "Get one email a week when CD and savings rates move.",
     "/cd-vs-money-market-fund/": "Get one email a week with new money market yields and what moved in CDs.",
+    "/marcus-vs-bread-savings-cd/": "Get one email a week when CD rates at Marcus, Bread Savings and other banks move.",
 }
 
 def newsletter_top(path):
@@ -455,6 +456,7 @@ COMPARE = [("/usdc-vs-high-yield-savings/", "USDC vs high-yield savings"), ("/be
            ("/cds-vs-t-bills/", "CDs vs T-bills"),
            ("/cd-vs-high-yield-savings/", "CD vs high-yield savings"),
            ("/cd-vs-money-market-fund/", "CD vs money market fund"),
+           ("/marcus-vs-bread-savings-cd/", "Marcus vs Bread Savings CD rates"),
            ("/rate-changes/", "What moved this week")]
 def related(here):
     return ('<div class="box rel"><b>Compare:</b> ' + "".join(f'<a href="{p}">{e(l)}</a>' for p, l in COMPARE if p != here) + '</div>')
@@ -3238,7 +3240,7 @@ _cd_body = (
     + "</ul>"
     "<h2>Which one fits</h2><ul>"
     '<li><b>You may need the money on any day:</b> <a href="/savings/">savings</a> or a <a href="/money-market/">money market fund</a> is built for that. Side by side: <a href="/cd-vs-money-market-fund/">CD vs money market fund</a>.</li>'
-    "<li><b>You can leave it until a set date and want a rate that won't change:</b> that's what a CD does.</li>"
+    "<li><b>You can leave it until a set date and want a rate that won't change:</b> that's what a CD does. Bank vs bank: <a href=\"/marcus-vs-bread-savings-cd/\">Marcus vs Bread Savings CD rates</a>.</li>"
     '<li><b>You pay state income tax and can hold to a date:</b> compare <a href="/treasury-bills/">T-bill auction rates</a> too, since T-bill interest skips state tax.</li>'
     "</ul></div>"
     + faq_block(_cd_faqs)
@@ -3617,6 +3619,155 @@ page("/cd-vs-money-market-fund/",
       else f"The top money market fund, {_cm_tk(_cm_top)}, yields {_cm_top['rate']:.2f}%. ")
      + "Rate lock, access, FDIC vs SIPC, state tax and minimums.",
      _cm_body, h1="CD vs money market fund: which pays more?", faqs=_cm_faqs)
+
+# ---- Marcus vs Bread Savings CD (added 2026-11-27 daily build) ----
+# Every rate, minimum and penalty comes from the cd_seed.csv rows above (Marcus High-Yield CD and Bread Savings CD,
+# read Nov 23, 2026); no figures are typed in here. Non-rate wording reuses facts already on /cd-rates/ (Marcus compounds
+# daily, credited monthly, 10-day CD rate guarantee; Bread $1,000,000 per-account maximum; FDIC limit wording).
+_MB_M, _MB_B = "Marcus by Goldman Sachs", "Bread Savings"
+_mb_m = {r["months"]: r for r in CD if r["bank"] == _MB_M}
+_mb_b = {r["months"]: r for r in CD if r["bank"] == _MB_B}
+_mb_both = sorted(set(_mb_m) & set(_mb_b))
+if not _mb_both:
+    raise SystemExit("marcus-vs-bread-savings-cd: no shared Marcus/Bread CD terms in cd_seed.csv")
+_mb_only_b = sorted(set(_mb_b) - set(_mb_m))
+_mb_only_m = sorted(set(_mb_m) - set(_mb_b))
+def _mb_lab(mo): return {12: "1-year"}.get(mo, f"{mo // 12}-year" if mo % 12 == 0 and mo >= 24 else f"{mo}-month")
+def _mb_short(mo): return {12: "1 year"}.get(mo, f"{mo // 12} years" if mo % 12 == 0 and mo >= 24 else f"{mo} months")
+_mb_bwin = [mo for mo in _mb_both if _mb_b[mo]["rate"] > _mb_m[mo]["rate"]]
+_mb_mwin = [mo for mo in _mb_both if _mb_m[mo]["rate"] > _mb_b[mo]["rate"]]
+_mb_tie = [mo for mo in _mb_both if _mb_m[mo]["rate"] == _mb_b[mo]["rate"]]
+def _mb_hi(d):
+    hi = max(r["rate"] for r in d.values())
+    return hi, sorted(mo for mo, r in d.items() if r["rate"] == hi)
+_mb_bhi, _mb_bhi_t = _mb_hi(_mb_b)
+_mb_mhi, _mb_mhi_t = _mb_hi(_mb_m)
+def _mb_where(ts):
+    if len(ts) > 2: return f"on terms from {_mb_short(ts[0])} to {_mb_short(ts[-1])}"
+    return f"on its {_cd_join([_mb_lab(t) for t in ts])} {'CD' if len(ts) == 1 else 'CDs'}"
+_mb_lead = [f"Bread Savings pays up to {_mb_bhi:.2f}% APY {_mb_where(_mb_bhi_t)}, and Marcus pays up to {_mb_mhi:.2f}% {_mb_where(_mb_mhi_t)}."]
+def _mb_pct(r): return f"{r['rate']:.2f}%"
+def _mb_vs(mo, a, b): return f"{a[mo]['rate']:.2f}% vs {b[mo]['rate']:.2f}%"
+if len(_mb_bwin) >= len(_mb_mwin):
+    _mb_lead.append(f"Bread pays more at {len(_mb_bwin)} of the {len(_mb_both)} terms both banks offer.")
+    if _mb_mwin:
+        _mb_lead.append("Marcus pays more at " + _cd_join([f"{_mb_short(mo)} ({_mb_vs(mo, _mb_m, _mb_b)})" for mo in _mb_mwin]) + ".")
+else:
+    _mb_lead.append(f"Marcus pays more at {len(_mb_mwin)} of the {len(_mb_both)} terms both banks offer.")
+    if _mb_bwin:
+        _mb_lead.append("Bread pays more at " + _cd_join([f"{_mb_short(mo)} ({_mb_vs(mo, _mb_b, _mb_m)})" for mo in _mb_bwin]) + ".")
+if _mb_tie:
+    _mb_lead.append("They pay the same at " + _cd_join([_mb_short(mo) for mo in _mb_tie]) + ".")
+_mb_lead = " ".join(_mb_lead)
+_mb_gaps = {mo: _mb_b[mo]["rate"] - _mb_m[mo]["rate"] for mo in _mb_both}
+_mb_big = max(_mb_both, key=lambda mo: (abs(_mb_gaps[mo]), mo))
+def _mb_row(mo):
+    m, b = _mb_m.get(mo), _mb_b.get(mo)
+    mc = f'{m["rate"]:.2f}%' if m else "n/a"
+    bc = f'{b["rate"]:.2f}%' if b else "n/a"
+    if m and b:
+        g = b["rate"] - m["rate"]
+        hi = "Bread Savings" if g > 0 else ("Marcus" if g < 0 else "Same")
+        gap = f"{abs(g):.2f} pts ({dollars(abs(g))})" if g else "Even"
+    else:
+        hi, gap = ("Marcus only" if m else "Bread Savings only"), "n/a"
+    return f'<tr><td>{e(_mb_lab(mo))}</td><td class="apy">{mc}</td><td class="apy">{bc}</td><td>{e(hi)}</td><td>{e(gap)}</td></tr>'
+_mb_terms = sorted(set(_mb_m) | set(_mb_b))
+_mb_tbl = ('<div class="tw"><table><thead><tr><th>Term</th><th>Marcus APY</th><th>Bread Savings APY</th><th>Pays more</th>'
+           '<th>Gap (a year on $10,000)</th></tr></thead><tbody>' + "".join(_mb_row(mo) for mo in _mb_terms) + "</tbody></table></div>"
+           + f'<p class="foot-n">APYs are from each bank\'s CD page, checked {_cd_upd}. Rates change; confirm on the bank\'s page before you open a CD. '
+           "The gap column is the extra interest for one year on $10,000. Not financial advice.</p>")
+def _mb_pen_groups(d):
+    out = []
+    for mo in sorted(d):
+        p = (d[mo].get("early_withdrawal") or "").strip() or "Confirm on the bank's CD page"
+        if out and out[-1][0] == p: out[-1][1].append(mo)
+        else: out.append([p, [mo]])
+    return out
+def _mb_pen_txt(d):
+    g = _mb_pen_groups(d)
+    if len(g) == 1: return g[0][0][0].upper() + g[0][0][1:]
+    return "; ".join(f"{p[0].upper() + p[1:]} ({_mb_short(ts[0])}" + (f" to {_mb_short(ts[-1])})" if len(ts) > 1 else ")") for p, ts in g)
+_mb_min_m = next(iter(_mb_m.values()))["min_deposit"]
+_mb_min_b = next(iter(_mb_b.values()))["min_deposit"]
+_mb_url_m = next(iter(_mb_m.values()))["source_url"]
+_mb_url_b = next(iter(_mb_b.values()))["source_url"]
+_mb_tbl2 = ('<div class="tw"><table><thead><tr><th>Bank</th><th>Minimum deposit</th><th>Early withdrawal penalty</th><th>Terms</th><th>Source</th></tr></thead><tbody>'
+            f'<tr><td>Marcus High-Yield CD</td><td>{e(_mb_min_m)}</td><td>{e(_mb_pen_txt(_mb_m))}</td><td>{e(_mb_short(min(_mb_m)))} to {e(_mb_short(max(_mb_m)))}</td>'
+            f'<td><a href="{e(_mb_url_m)}" rel="nofollow">Marcus CD page</a></td></tr>'
+            f'<tr><td>Bread Savings CD</td><td>{e(_mb_min_b)}</td><td>{e(_mb_pen_txt(_mb_b))}</td><td>{e(_mb_short(min(_mb_b)))} to {e(_mb_short(max(_mb_b)))}</td>'
+            f'<td><a href="{e(_mb_url_b)}" rel="nofollow">Bread Savings CD page</a></td></tr></tbody></table></div>')
+def _mb_days(r):
+    m = re.search(r"(\d+) days simple interest", r.get("early_withdrawal") or "")
+    return int(m.group(1)) if m else None
+_mb_b12 = _mb_b.get(12)
+_mb_b12_cost = (f"Breaking Bread's 1-year CD costs {_mb_days(_mb_b12)} days of simple interest: about "
+                f"${10000 * _mb_b12['rate'] / 100 * _mb_days(_mb_b12) / 365:,.0f} on $10,000 at {_mb_b12['rate']:.2f}%."
+                if _mb_b12 and _mb_days(_mb_b12) else "Bread charges a set number of days of simple interest; check its CD page.")
+_mb_ev = next((r for r in CD if r["bank"] == "EverBank" and r["months"] == 13), None)
+_mb_ev_txt = (f'Outside these two banks, EverBank\'s 13-month CD pays {_mb_ev["rate"]:.2f}% (as of {_cd_d(_mb_ev['as_of'] or _mb_ev['fetched_at'])}); see <a href="/cd-rates/">all CD rates</a>.'
+              if _mb_ev else "")
+_mb_faqs = [
+    ("Does Marcus or Bread Savings pay more on CDs?", _mb_lead),
+    ("Which bank pays more on a 1-year CD?",
+     (f"Marcus pays {_mb_m[12]['rate']:.2f}% APY on its 1-year CD and Bread Savings pays {_mb_b[12]['rate']:.2f}%. "
+      f"On $10,000 that's a gap of about {dollars(abs(_mb_gaps[12]))} a year.") if 12 in _mb_both else "Check each bank's CD page for its 1-year rate."),
+    ("What's the minimum deposit?",
+     f"Marcus needs {_mb_min_m} to open a CD. Bread Savings needs {_mb_min_b} in a single deposit."),
+    ("What does it cost to cash out a CD early?",
+     "Marcus charges a penalty and lists the amount in its CD FAQs. "
+     f"Bread Savings charges {_mb_pen_txt(_mb_b)[0].lower() + _mb_pen_txt(_mb_b)[1:]}. {_mb_b12_cost}"),
+    ("Are Marcus and Bread Savings CDs FDIC-insured?",
+     "Yes. Both are FDIC member banks, and CDs are insured up to $250,000 per depositor, per bank, per ownership category. "
+     "Money at two different banks counts toward two separate limits."),
+]
+_mb_body = (
+    '<div class="prose">'
+    f'<p class="lead">{e(_mb_lead)}</p>'
+    f'<p class="upd">Rates from {_cd_upd} &middot; {len(_mb_both)} terms both banks offer</p>'
+    f"<p>These APYs are from {_cd_upd}. Confirm the current rate on the bank's page before you open a CD. Not financial advice.</p>"
+    "<h2>Marcus vs Bread Savings CD rates by term</h2></div>"
+    + _mb_tbl
+    + '<div class="prose">'
+    + f"<p>The biggest gap is at {_mb_short(_mb_big)}: {_mb_b[_mb_big]['rate']:.2f}% at Bread vs {_mb_m[_mb_big]['rate']:.2f}% at Marcus. "
+    + f"That's about {dollars(abs(_mb_gaps[_mb_big]))} a year on $10,000 and {dollars(abs(_mb_gaps[_mb_big]), 50000)} on $50,000.</p>"
+    + ("<p>" + " ".join(
+        ([f"Bread also has a {_cd_join([_mb_lab(mo) for mo in _mb_only_b])} CD at {_cd_join([_mb_pct(_mb_b[mo]) for mo in _mb_only_b])}."] if _mb_only_b else [])
+        + ([f"Marcus also has a {_cd_join([_mb_lab(mo) for mo in _mb_only_m])} CD at {_cd_join([_mb_pct(_mb_m[mo]) for mo in _mb_only_m])}."] if _mb_only_m else [])
+      ) + "</p>" if (_mb_only_b or _mb_only_m) else "")
+    + (f"<p>{_mb_ev_txt}</p>" if _mb_ev_txt else "")
+    + "<h2>Minimums, penalties and sources</h2></div>"
+    + _mb_tbl2
+    + '<div class="prose">'
+    "<h2>Other differences</h2><ul>"
+    f"<li><b>Minimum:</b> Marcus asks for {e(_mb_min_m)}. Bread asks for {e(_mb_min_b)} in a single deposit, up to $1,000,000 per account.</li>"
+    "<li><b>Interest:</b> Marcus compounds daily and credits interest monthly. If its rate for your term rises within 10 days of opening, you get the higher rate.</li>"
+    f"<li><b>Early withdrawal:</b> {e(_mb_b12_cost)} Marcus charges a penalty too; check its CD FAQs for the amount.</li>"
+    "<li><b>Insurance:</b> both are FDIC member banks. CDs are insured up to $250,000 per depositor, per bank, per ownership category "
+    '(<a href="https://www.fdic.gov/resources/deposit-insurance" rel="nofollow noopener">FDIC</a>).</li></ul>'
+    "<h2>Which one fits</h2><ul>"
+    + (f"<li><b>You want a 1-year CD:</b> Marcus, at {_mb_m[12]['rate']:.2f}% vs {_mb_b[12]['rate']:.2f}%, with a lower minimum.</li>" if 12 in _mb_mwin else "")
+    + (f"<li><b>You can lock up money for 18 months or longer:</b> Bread pays more at every term from 18 months to 5 years.</li>"
+       if all(mo in _mb_bwin for mo in _mb_both if mo >= 18) and any(mo >= 18 for mo in _mb_both) else "")
+    + (f"<li><b>You have less than {e(_mb_min_b)}:</b> Marcus, with its {e(_mb_min_m)} minimum.</li>")
+    + (f"<li><b>You want a term past 5 years:</b> Marcus has a 6-year CD at {_mb_m[72]['rate']:.2f}%.</li>" if 72 in _mb_only_m else "")
+    + "</ul>"
+    '<p>More: <a href="/cd-rates/">CD rates this week</a>, <a href="/cd-vs-high-yield-savings/">CD vs high-yield savings</a>, '
+    '<a href="/cds-vs-t-bills/">CDs vs T-bills</a>, <a href="/cd-vs-money-market-fund/">CD vs money market fund</a> and '
+    '<a href="/ally-vs-marcus-savings/">Ally vs Marcus savings</a>.</p>'
+    "</div>"
+    + faq_block(_mb_faqs)
+    + f'<div class="prose"><p>Sources: <a href="{e(_mb_url_m)}" rel="nofollow">Marcus CD page</a>, <a href="{e(_mb_url_b)}" rel="nofollow">Bread Savings CD page</a>'
+    + (f', <a href="{e(_mb_ev["source_url"])}" rel="nofollow">EverBank CD page</a>' if _mb_ev else "")
+    + f" (checked {_cd_upd}). Published by Sparta Labs. Not financial advice.</p></div>"
+    + related("/marcus-vs-bread-savings-cd/") + RISK_EXPLAINER + NEWSLETTER
+)
+page("/marcus-vs-bread-savings-cd/",
+     f"Marcus vs Bread Savings CD rates: which pays more? ({MONTH}) | {BRAND}",
+     f"Bread Savings CDs pay up to {_mb_bhi:.2f}% APY and Marcus up to {_mb_mhi:.2f}%. "
+     + (f"Marcus wins at 1 year ({_mb_m[12]['rate']:.2f}% vs {_mb_b[12]['rate']:.2f}%). " if 12 in _mb_mwin else "")
+     + "Rates by term, minimums and early withdrawal penalties.",
+     _mb_body, h1="Marcus vs Bread Savings CD rates: which pays more?", faqs=_mb_faqs)
 
 # About / Disclosures
 srcs = sorted({re.sub(r"^https?://([^/]+).*", r"\1", r["source_url"]) for r in SHOWN})
